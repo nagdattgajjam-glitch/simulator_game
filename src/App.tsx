@@ -68,6 +68,16 @@ export default function App() {
             </p>
           </div>
           <RewardAdButton />
+          <div className="flex items-center gap-3">
+            <RewardAdButton />
+            <button
+              type="button"
+              onClick={() => setShowThree((prev) => !prev)}
+              className="rounded-xl border border-coffee-200 bg-white px-4 py-3 text-sm font-semibold text-coffee-700 shadow-sm"
+            >
+              {showThree ? "Hide 3D Scene" : "Show 3D Scene"}
+            </button>
+          </div>
         </header>
 
         <StatsBar />
@@ -120,6 +130,52 @@ export default function App() {
                   <li>Offline earnings are capped at 8 hours.</li>
                 </ul>
               </div>
+        <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-coffee-200 bg-white/90 p-6 shadow-sm">
+              <p className="text-sm uppercase tracking-wide text-coffee-500">Manual Brew</p>
+              <h2 className="mt-2 text-2xl font-semibold">Make Coffee</h2>
+              <p className="text-sm text-coffee-600">
+                Click to earn {formatCoins(coinsPerClick)} coins per cup.
+              </p>
+              <button
+                type="button"
+                onClick={clickCoffee}
+                className="mt-4 w-full rounded-2xl bg-coffee-700 py-4 text-lg font-semibold text-white shadow-md transition hover:bg-coffee-800"
+              >
+                Brew Coffee ☕
+              </button>
+            </div>
+            <div className="rounded-2xl border border-coffee-200 bg-white/90 p-4 shadow-sm">
+              <h2 className="text-lg font-semibold">Cafe Visuals</h2>
+              <p className="text-sm text-coffee-600">
+                Phaser renders the shop while the UI handles upgrades and progression.
+              </p>
+              <div className="mt-3">
+                <PhaserGame />
+              </div>
+            </div>
+            {showThree && (
+              <div className="rounded-2xl border border-coffee-200 bg-white/90 p-4 shadow-sm">
+                <h2 className="text-lg font-semibold">Optional 3D Scene</h2>
+                <p className="text-sm text-coffee-600">
+                  Minimal Three.js scene ready for future expansion.
+                </p>
+                <div className="mt-3 flex justify-center">
+                  <ThreeScene />
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="space-y-4">
+            <ShopPanel />
+            <div className="rounded-2xl border border-coffee-200 bg-white/90 p-4 shadow-sm">
+              <h2 className="text-lg font-semibold">Progression Tips</h2>
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-coffee-600">
+                <li>Invest in auto brewers to build passive income.</li>
+                <li>Use rewarded ads for short bursts of production.</li>
+                <li>Offline earnings are capped at 8 hours.</li>
+              </ul>
             </div>
           </div>
         </div>
