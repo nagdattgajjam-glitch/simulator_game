@@ -21,7 +21,8 @@ npm run preview
 - **React UI** handles player input and upgrade management.
 - **Zustand store** is the source of truth for coins, upgrades, boosts, and timestamps.
 - **Simulation loop** (`requestAnimationFrame`) ticks every frame to add passive income.
-- **Phaser** renders a light-weight visual scene separate from UI state.
+- **Three.js** renders the primary 3D coffee simulator scene with clickable interactions.
+- **Phaser** renders a lightweight secondary scene separate from UI state.
 - **Persistence** saves to `localStorage` and restores on load.
 - **Offline earnings** are computed using last login timestamp and capped for balance.
 
@@ -48,4 +49,4 @@ src/
 
 ## Optional 3D Scene
 
-Three.js scene is included as a toggleable UI element. It is isolated so the game remains playable without 3D rendering.
+Three.js scene is the primary simulator view with a clickable cup for manual brewing. It is isolated so the game remains playable without 3D rendering.

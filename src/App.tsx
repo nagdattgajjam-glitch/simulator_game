@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ShopPanel } from "./components/ShopPanel";
 import { StatsBar } from "./components/StatsBar";
 import { Toasts } from "./components/Toast";
 import { RewardAdButton } from "./components/RewardAdButton";
 import { PhaserGame } from "./game/PhaserGame";
-import { ThreeScene } from "./components/ThreeScene";
+import { ThreeCoffeeScene } from "./game/ThreeCoffeeScene";
 import { useSimulationLoop } from "./engine/simulation";
 import { loadState, saveState } from "./services/persistence";
 import { useGameStore } from "./store/gameStore";
@@ -16,8 +16,6 @@ export default function App() {
   const applyOfflineEarnings = useGameStore((state) => state.applyOfflineEarnings);
   const hydrate = useGameStore((state) => state.hydrate);
   const setLastLogin = useGameStore((state) => state.setLastLogin);
-  const [showThree, setShowThree] = useState(false);
-
   useSimulationLoop();
 
   useEffect(() => {
@@ -69,6 +67,7 @@ export default function App() {
               Brew coffee, automate production, and expand your café.
             </p>
           </div>
+          <RewardAdButton />
           <div className="flex items-center gap-3">
             <RewardAdButton />
             <button
@@ -83,6 +82,54 @@ export default function App() {
 
         <StatsBar />
 
+        <div className="space-y-6">
+          <section className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-semibold">3D Coffee Simulator</h2>
+                <p className="text-sm text-coffee-600">Tap the cup to brew coffee in the scene.</p>
+              </div>
+              <div className="hidden text-sm text-coffee-500 sm:block">Powered by Three.js</div>
+            </div>
+            <ThreeCoffeeScene />
+          </section>
+
+          <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
+            <div className="space-y-4">
+              <div className="rounded-2xl border border-coffee-200 bg-white/90 p-6 shadow-sm">
+                <p className="text-sm uppercase tracking-wide text-coffee-500">Manual Brew</p>
+                <h2 className="mt-2 text-2xl font-semibold">Make Coffee</h2>
+                <p className="text-sm text-coffee-600">
+                  Click to earn {formatCoins(coinsPerClick)} coins per cup.
+                </p>
+                <button
+                  type="button"
+                  onClick={clickCoffee}
+                  className="mt-4 w-full rounded-2xl bg-coffee-700 py-4 text-lg font-semibold text-white shadow-md transition hover:bg-coffee-800"
+                >
+                  Brew Coffee ☕
+                </button>
+              </div>
+              <div className="rounded-2xl border border-coffee-200 bg-white/90 p-4 shadow-sm">
+                <h2 className="text-lg font-semibold">Cafe Visuals</h2>
+                <p className="text-sm text-coffee-600">
+                  Phaser renders the shop while the UI handles upgrades and progression.
+                </p>
+                <div className="mt-3">
+                  <PhaserGame />
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <ShopPanel />
+              <div className="rounded-2xl border border-coffee-200 bg-white/90 p-4 shadow-sm">
+                <h2 className="text-lg font-semibold">Progression Tips</h2>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-coffee-600">
+                  <li>Invest in auto brewers to build passive income.</li>
+                  <li>Use rewarded ads for short bursts of production.</li>
+                  <li>Offline earnings are capped at 8 hours.</li>
+                </ul>
+              </div>
         <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
           <div className="space-y-4">
             <div className="rounded-2xl border border-coffee-200 bg-white/90 p-6 shadow-sm">
